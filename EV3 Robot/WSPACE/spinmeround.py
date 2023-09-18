@@ -7,9 +7,10 @@ from time import sleep
 def main():
     motLeft = LargeMotor(OUTPUT_B)
     motRight = LargeMotor(OUTPUT_C)
-    motLeft.on(speed = 50)
-    motRight.on(speed = 50)
-    sleep(8)
+    motLeft.on(speed=100)
+    sleep(15)
+    
+    
     motLeft.off()
     motRight.off()
 
