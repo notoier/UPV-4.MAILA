@@ -11,16 +11,16 @@ def main():
     mdiff.odometry_start(theta_degrees_start=0.0)
     
     mdiff.on_to_coordinates(SpeedRPM(40), 1000, 0)
-    mdiff.turn_to_angle(SpeedRPM(40), 90)
+    #mdiff.turn_to_angle(SpeedRPM(40), 90)
     
-    mdiff.on_to_coordinates(SpeedRPM(40), 1000, 1000)
-    mdiff.turn_to_angle(SpeedRPM(40), 90)
+    mdiff.on_to_coordinates(SpeedRPM(40), 1000, -1000)
+    #mdiff.turn_to_angle(SpeedRPM(40), 82)
     
-    mdiff.on_to_coordinates(SpeedRPM(40), 0, 1000)
-    mdiff.turn_to_angle(SpeedRPM(40), 90)
+    mdiff.on_to_coordinates(SpeedRPM(40), 0, -1000)
+    #mdiff.turn_to_angle(SpeedRPM(40), -82)
     
     mdiff.on_to_coordinates(SpeedRPM(40), 0, 0)
-    mdiff.turn_to_angle(SpeedRPM(40), 90)
+    mdiff.turn_to_angle(SpeedRPM(40), 0)
     
 
 if __name__=="__main__":
