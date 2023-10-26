@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import time as tm
 
 
 #Implementacion de la funcion de localidad
@@ -74,6 +75,7 @@ def analizaVecindad(current: list, fitness: float, opcion: int) -> (float, list,
     
     #BEST_FIRST
     if (opcion==0):
+        print("BEST FIRST")
         vecino=vecindad[random.randint(0,len(vecindad)-1)]
         #print(vecino)
         #Obtenemos su valor fitness
@@ -87,9 +89,9 @@ def analizaVecindad(current: list, fitness: float, opcion: int) -> (float, list,
         else:
             print("EL CURRENT ES MEJOR")
             return (fitness,current,False)
-        
     #GREEDY
     elif (opcion==1):
+        print("GREEDY")
         #Inicializamos nuevo current
         new_current=current
         new_fitness=fitness
@@ -108,9 +110,9 @@ def analizaVecindad(current: list, fitness: float, opcion: int) -> (float, list,
         else:
             print("EL CURRENT ES MEJOR")
             return (fitness,current,False)
-        
     #RANDOM
     elif (opcion==2):
+        print("RANDOM")
         vecino=vecindad[random.randint(0,len(vecindad)-1)]
         fitness_n=objective_function_QAP(vecino,instance)
         if(VecinoMejor(fitness,fitness_n)):
@@ -125,14 +127,13 @@ def analizaVecindad(current: list, fitness: float, opcion: int) -> (float, list,
 def VecinoMejor(fitness_current:float, fitness_n:float) -> bool:
     return True if fitness_n < fitness_current else False
 #--------------------------------------------------------------------------------
-def local_search(instance : list, max_evals : int) -> list:
+def local_search(instance : list, max_evals : int, tipo_de_busqueda : int) -> list:
     '''
     :param instance: instancia del problema
     :param max_evals: numero maximo de iteraciones a realizar
     :return: solucion, fitness del candidato y número de evaluaciones
     '''
 
-    # TODO
     # Generamos un primer candidato naive y calculamos fitness
     size = instance[0]
     candidate = np.random.permutation(list(range(size)))
@@ -141,10 +142,10 @@ def local_search(instance : list, max_evals : int) -> list:
     mejora = True
     n_evals = 1
 
-    ## TODO (APROX 20 LINEAS)
+
 
     while (mejora==True and n_evals<=max_evals):
-        (best_fitness, best_candidate, mejora)=analizaVecindad(candidate,fitness,1)
+        (best_fitness, best_candidate, mejora)=analizaVecindad(candidate,fitness, tipo_de_busqueda)
         print("Current: {} - Vecino: {}".format(candidate, best_candidate))
         print("Fitness_Current: {} - Fitness_Vecino: {}".format(fitness, best_fitness))
         if(mejora==True):
@@ -163,8 +164,10 @@ def local_search(instance : list, max_evals : int) -> list:
 instance = read_instance_QAP("tai20a.dat")
 
 # Explora la vecindad de nuestro candidato para analizar si podemos mejorar la solución inicial
-(best_fitness, best_solution, n_evals) = local_search(instance, 10)
-print("Best fitness: {} - best candidate: {} - No evaluaciones: {}".format(best_fitness, best_solution, n_evals)) 
+start = tm.time()
+(best_fitness, best_solution, n_evals) = local_search(instance, 1000000, 2)
+end = tm.time()
+print("Best fitness: {} - best candidate: {} - No evaluaciones: {} - Tiempo: {}".format(best_fitness, best_solution, n_evals, end-start)) 
 
 
 
